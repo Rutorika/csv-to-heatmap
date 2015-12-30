@@ -1,0 +1,49 @@
+{
+  "name": "csvToHeatmap",
+  "version": "0.0.0",
+  "dependencies": {
+    "angular-animate": "~1.4.2",
+    "angular-cookies": "~1.4.2",
+    "angular-touch": "~1.4.2",
+    "angular-sanitize": "~1.4.2",
+    "angular-messages": "~1.4.2",
+    "jquery": "~2.1.4",
+    "angular-ui-router": "~0.2.15",
+    "bootstrap": "~3.3.5",
+    "angular-bootstrap": "~0.13.4",
+    "angular-toastr": "~1.5.0",
+    "moment": "~2.10.6",
+    "animate.css": "~3.4.0",
+    "angular": "~1.4.2",
+    "angular-simple-logger": "~0.1.5",
+    "ui-leaflet": "~1.0.0",
+    "leaflet-plugins": "~1.4.2",
+    "comma-separated-values": "~3.6.4",
+    "webgl-heatmap-leaflet": "*"
+  },
+  "devDependencies": {
+    "angular-mocks": "~1.4.2"
+  },
+  "overrides": {
+    "bootstrap": {
+      "main": [
+        "dist/css/bootstrap.css",
+        "dist/fonts/glyphicons-halflings-regular.eot",
+        "dist/fonts/glyphicons-halflings-regular.svg",
+        "dist/fonts/glyphicons-halflings-regular.ttf",
+        "dist/fonts/glyphicons-halflings-regular.woff",
+        "dist/fonts/glyphicons-halflings-regular.woff2"
+      ]
+    },
+    "webgl-heatmap-leaflet": {
+      "main": [
+        "js/webgl-heatmap.js",
+        "js/webgl-heatmap-leaflet.js"
+      ]
+    }
+  },
+  "resolutions": {
+    "jquery": "~2.1.4",
+    "angular": "~1.4.2"
+  }
+}
