@@ -2,6 +2,8 @@
 
 Parse selected CSV file and show heatmap.
 
+[Demo](http://csv-to-heatmap.bathyscaph.ru/)
+
 Built with
 - [angularjs](https://angularjs.org/),
 - [ui-leaflet](https://github.com/angular-ui/ui-leaflet) (angular directive for the [leaflet](http://leafletjs.com/) library)
