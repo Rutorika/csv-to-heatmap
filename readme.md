@@ -29,6 +29,7 @@ And point your webserver to the `dist` folder
 
 - npm >= 3
 - gulp
+- bower
 
 ### Development Install
 
