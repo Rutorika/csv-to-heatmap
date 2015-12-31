@@ -28,12 +28,13 @@
     vm.isFilterSelected = isFilterSelected;
     vm.toggleFilterSelected = toggleFilterSelected;
     vm.setFilterSelected = setFilterSelected;
+    vm.fitBounds = fitBounds;
 
     vm.map = {
       center: {
-        lat: 42.34,
-        lng: -71.1,
-        zoom: 11
+        lat: 51.4768219,
+        lng: -0.0006172,
+        zoom: 14
       },
       defaults: {},
       layers: {
@@ -60,7 +61,6 @@
      */
     function csvChanged() {
       vm.header = Object.keys(vm.csvRows[0]);
-
 
       vm.latitudeColumn = null;
       vm.longitudeColumn = null;
@@ -132,6 +132,22 @@
 
     function setFilterSelected(filters) {
       vm.filterOptionsSelected = angular.copy(filters);
+    }
+
+    function fitBounds() {
+
+      if (!vm.latitudeColumn || !vm.longitudeColumn) {
+        return;
+      }
+
+      var bounds = [];
+      vm.csvRows.forEach(function (row) {
+        var point = parseRow(row);
+        bounds.push([point[0], point[1]]);
+      });
+      leafletData.getMap().then(function (map) {
+        map.fitBounds(bounds);
+      });
     }
   }
 })();

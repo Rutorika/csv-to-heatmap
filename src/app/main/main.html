@@ -41,7 +41,7 @@
 
       <div class="form-group" ng-class="{'has-error': csvForm.$submitted && csvForm.latitudeColumn.$invalid}">
         <label class="control-label" for="latitudeColumn">Latitude column</label>
-        <select name="latitudeColumn" class="form-control" ng-model="Main.latitudeColumn" required id="latitudeColumn">
+        <select name="latitudeColumn" class="form-control" ng-model="Main.latitudeColumn" required id="latitudeColumn" ng-change="Main.fitBounds()">
           <option ng-repeat="headerName in Main.header">{{ headerName }}</option>
         </select>
         <div ng-messages="csvForm.latitudeColumn.$error" ng-show="csvForm.$submitted">
@@ -51,7 +51,7 @@
 
       <div class="form-group" ng-class="{'has-error': csvForm.$submitted && csvForm.longitudeColumn.$invalid}">
         <label class="control-label" for="longitudeColumn">Longitude column</label>
-        <select name="longitudeColumn" class="form-control" ng-model="Main.longitudeColumn" required id="longitudeColumn">
+        <select name="longitudeColumn" class="form-control" ng-model="Main.longitudeColumn" required id="longitudeColumn" ng-change="Main.fitBounds()">
           <option ng-repeat="headerName in Main.header">{{ headerName }}</option>
         </select>
         <div ng-messages="csvForm.longitudeColumn.$error" ng-show="csvForm.$submitted">
