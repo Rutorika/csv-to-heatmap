@@ -19,7 +19,8 @@
     "ui-leaflet": "~1.0.0",
     "leaflet-plugins": "~1.4.2",
     "comma-separated-values": "~3.6.4",
-    "webgl-heatmap-leaflet": "*"
+    "webgl-heatmap-leaflet": "*",
+    "underscore": "~1.8.3"
   },
   "devDependencies": {
     "angular-mocks": "~1.4.2"
