@@ -7,11 +7,12 @@
       <a class="btn btn-default btn-sm" ng-click="Main.setFilterSelected([])">Select none</a>
     </div>
 
-    <table class="table table-condensed" ng-if="Main.filterByColumn">
+    <table class="table table-condensed table-hover" ng-if="Main.filterByColumn">
       <tbody>
-      <tr ng-repeat="filterValue in Main.filterOptions">
+      <tr ng-repeat="filterValue in Main.filterOptions" ng-click="Main.toggleFilterSelected(filterValue)" style="cursor: pointer" class="no-text-select">
         <td style="width: 1%">
-          <input type="checkbox" ng-checked="Main.isFilterSelected(filterValue)" ng-click="Main.toggleFilterSelected(filterValue)" />
+          <i class="glyphicon glyphicon-unchecked" ng-show="!Main.isFilterSelected(filterValue)"></i>
+          <i class="glyphicon glyphicon-check" ng-show="Main.isFilterSelected(filterValue)"></i>
         </td>
         <td>{{ ::filterValue }}</td>
         <td></td>

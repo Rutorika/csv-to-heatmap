@@ -44,3 +44,11 @@ body > .container {
 .footer a {
   color: #777;
 }
+
+.no-text-select {
+  -moz-user-select: none;
+  -webkit-user-select: none;
+  -ms-user-select: none;
+  -o-user-select: none;
+  user-select: none;
+}
