@@ -1,3 +1,6 @@
+/**
+ * Attribute directive for the file input. Parse selected csv file and update model value with the result.
+ */
 (function () {
   'use strict';
 
@@ -5,15 +8,17 @@
     .directive('csvReader', csvReader);
 
   /** @ngInject */
-  function csvReader(CSV, $log) {
+  function csvReader(CSV) {
 
     return {
       restrict: 'A',
       require: '?ngModel',
       link: function (scope, element, attrs, ngModel) {
         if (!ngModel) return;
+        updateValidity();
 
         element.on('change', function () {
+          updateValidity();
           scope.$evalAsync(read);
         });
 
@@ -27,6 +32,10 @@
           };
 
           reader.readAsText(file);
+        }
+
+        function updateValidity() {
+          ngModel.$setValidity('required', element.val() != '');
         }
       }
     };
