@@ -1,13 +1,33 @@
 <div class="row">
-  <div class="col-md-8">
-    <leaflet defaults="Main.map.defaults" layers="Main.map.layers" lf-center="Main.map.center" height="480px" width="100%"></leaflet>
+  <div class="col-md-8" style="margin-bottom: 2em;">
+    <leaflet defaults="Main.map.defaults" layers="Main.map.layers" lf-center="Main.map.center" height="400px" width="100%"></leaflet>
+
+    <div ng-if="Main.filterByColumn" style="margin: 1em 0;">
+      <a class="btn btn-default btn-sm" ng-click="Main.setFilterSelected(Main.filterOptions)">Select all</a>
+      <a class="btn btn-default btn-sm" ng-click="Main.setFilterSelected([])">Select none</a>
+    </div>
+
+    <table class="table table-condensed" ng-if="Main.filterByColumn">
+      <tbody>
+      <tr ng-repeat="filterValue in Main.filterOptions">
+        <td style="width: 1%">
+          <input type="checkbox" ng-checked="Main.isFilterSelected(filterValue)" ng-click="Main.toggleFilterSelected(filterValue)" />
+        </td>
+        <td>{{ ::filterValue }}</td>
+        <td></td>
+      </tr>
+      </tbody>
+    </table>
   </div>
-  <div class="col-md-4">
+  <div class="col-md-4" style="margin-bottom: 2em;">
 
     <form name="csvForm" ng-submit="Main.renderHeatmap(csvForm)">
-      <div class="form-group">
-        <label class="control-label">CSV File</label>
-        <input ng-model="Main.csvRows" type="file" name="csv" ng-change="Main.csvChanged()" csv-reader />
+      <div class="form-group" ng-class="{'has-error': csvForm.$submitted && csvForm.csv.$invalid}">
+        <label class="control-label" for="csv">CSV File</label>
+        <input ng-model="Main.csvRows" type="file" name="csv" ng-change="Main.csvChanged()" csv-reader id="csv" />
+        <div ng-messages="csvForm.csv.$error" ng-show="csvForm.$submitted">
+          <div ng-messages-include="error-messages"></div>
+        </div>
       </div>
       <div class="form-group">
         <label class="control-label" for="intensity">Point intensity (%)</label>
@@ -37,6 +57,15 @@
           <div ng-messages-include="error-messages"></div>
         </div>
       </div>
+
+
+      <div class="form-group">
+        <label class="control-label" for="filterByColumn">Filter by column (optional)</label>
+        <select name="filterByColumn" class="form-control" ng-model="Main.filterByColumn" id="filterByColumn" ng-change="Main.filterByColumnChanged()">
+          <option ng-repeat="headerName in Main.header">{{ headerName }}</option>
+        </select>
+      </div>
+
       <button type="submit" class="btn btn-primary">Render heatmap</button>
     </form>
 

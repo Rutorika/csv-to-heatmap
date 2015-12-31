@@ -31,15 +31,16 @@ body {
 body > .container {
   padding: 60px 15px 0;
 }
-.container .text-muted {
-  margin: 20px 0;
-}
 
 .footer > .container {
   padding-right: 15px;
   padding-left: 15px;
 }
+.footer > .container p {
+  color: #777;
+  margin: 20px 0;
+}
 
-code {
-  font-size: 80%;
+.footer a {
+  color: #777;
 }
