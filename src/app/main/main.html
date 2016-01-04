@@ -60,11 +60,14 @@
       </div>
 
 
-      <div class="form-group">
+      <div class="form-group" ng-class="{'has-error': csvForm.filterByColumn.$invalid}">
         <label class="control-label" for="filterByColumn">Filter by column (optional)</label>
-        <select name="filterByColumn" class="form-control" ng-model="Main.filterByColumn" id="filterByColumn" ng-change="Main.filterByColumnChanged()">
+        <select name="filterByColumn" class="form-control" ng-model="Main.filterByColumn" id="filterByColumn" ng-change="Main.filterByColumnChanged(csvForm.filterByColumn)" heatfilter="Main.csvRows">
           <option ng-repeat="headerName in Main.header">{{ headerName }}</option>
         </select>
+        <div ng-messages="csvForm.filterByColumn.$error">
+          <div ng-messages-include="error-messages"></div>
+        </div>
       </div>
 
       <button type="submit" class="btn btn-primary">Render heatmap</button>

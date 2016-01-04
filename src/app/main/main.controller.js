@@ -103,8 +103,8 @@
       });
     }
 
-    function filterByColumnChanged() {
-      if (vm.filterByColumn) {
+    function filterByColumnChanged(column) {
+      if (vm.filterByColumn && column.$valid) {
         vm.filterOptions = _.uniq(_.pluck(vm.csvRows, vm.filterByColumn)).sort();
         vm.filterOptionsSelected = angular.copy(vm.filterOptions);
       }
