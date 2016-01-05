@@ -10,11 +10,11 @@
     .controller('MainController', MainController);
 
   /** @ngInject */
-  function MainController($log, leafletData, L, _) {
+  function MainController(leafletData, L, _) {
     var vm = this;
 
-    vm.csvRows = [];
-    vm.pointIntensity = 8;
+    vm.csvRows = []; // parsed rows
+    vm.pointIntensity = 8; // @see
     vm.header = [];
     vm.latitudeColumn = null;
     vm.longitudeColumn = null;
@@ -57,7 +57,7 @@
     var heatmap;
 
     /**
-     * Listen to csv changed, update header columns and reset file related options
+     * Listen to csv change, update header columns and reset file related options
      */
     function csvChanged() {
       vm.header = Object.keys(vm.csvRows[0]);
@@ -74,11 +74,11 @@
         return;
       }
 
+      // if filtering used then filter rows and show, otherwise just show all
       if (vm.filterOptionsSelected !== null) {
         var filteredRows = vm.csvRows.filter(function (row) {
           return _.contains(vm.filterOptionsSelected, row[vm.filterByColumn]);
         });
-
         _renderHeatmap(filteredRows);
       } else {
         _renderHeatmap(vm.csvRows);
@@ -103,6 +103,11 @@
       });
     }
 
+    /**
+     * When changed column to filter by
+     *
+     * @param column
+     */
     function filterByColumnChanged(column) {
       if (vm.filterByColumn && column.$valid) {
         vm.filterOptions = _.uniq(_.pluck(vm.csvRows, vm.filterByColumn)).sort();
@@ -111,6 +116,8 @@
     }
 
     /**
+     * get [lat, lng, intesity] from row by columns
+     *
      * @param row
      * @returns {*[]}
      */
@@ -118,10 +125,21 @@
       return [row[vm.latitudeColumn], row[vm.longitudeColumn], vm.pointIntensity];
     }
 
+    /**
+     * check is filter selected to show checked checkbox icon
+     *
+     * @param value
+     * @returns {boolean}
+     */
     function isFilterSelected(value) {
       return _.contains(vm.filterOptionsSelected, value);
     }
 
+    /**
+     * check/uncheck filter
+     *
+     * @param value
+     */
     function toggleFilterSelected(value) {
       if (_.contains(vm.filterOptionsSelected, value)) {
         vm.filterOptionsSelected = _.without(vm.filterOptionsSelected, value);
@@ -134,9 +152,15 @@
       vm.filterOptionsSelected = angular.copy(filters);
     }
 
-    function fitBounds() {
+    /**
+     * On lat/lng column change trying to fit map to points. checks both columns has been set and valid
+     *
+     * @param latColumn
+     * @param lngColumn
+     */
+    function fitBounds(latColumn, lngColumn) {
 
-      if (!vm.latitudeColumn || !vm.longitudeColumn) {
+      if (!vm.latitudeColumn || !vm.longitudeColumn || !latColumn.$valid || !lngColumn.$valid) {
         return;
       }
 

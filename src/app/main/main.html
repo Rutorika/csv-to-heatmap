@@ -39,22 +39,22 @@
         <input name="radius" type="number" min="0" max="10000" ng-model="Main.heatmapOptions.size" class="form-control" id="radius" />
       </div>
 
-      <div class="form-group" ng-class="{'has-error': csvForm.$submitted && csvForm.latitudeColumn.$invalid}">
+      <div class="form-group" ng-class="{'has-error': (csvForm.latitudeColumn.$dirty || csvForm.$submitted) && csvForm.latitudeColumn.$invalid}">
         <label class="control-label" for="latitudeColumn">Latitude column</label>
-        <select name="latitudeColumn" class="form-control" ng-model="Main.latitudeColumn" required id="latitudeColumn" ng-change="Main.fitBounds()">
+        <select name="latitudeColumn" class="form-control" ng-model="Main.latitudeColumn" required id="latitudeColumn" ng-change="Main.fitBounds(csvForm.latitudeColumn, csvForm.longitudeColumn)" coordinate-column="Main.csvRows[0]">
           <option ng-repeat="headerName in Main.header">{{ headerName }}</option>
         </select>
-        <div ng-messages="csvForm.latitudeColumn.$error" ng-show="csvForm.$submitted">
+        <div ng-messages="csvForm.latitudeColumn.$error" ng-show="csvForm.latitudeColumn.$dirty || csvForm.$submitted">
           <div ng-messages-include="error-messages"></div>
         </div>
       </div>
 
-      <div class="form-group" ng-class="{'has-error': csvForm.$submitted && csvForm.longitudeColumn.$invalid}">
+      <div class="form-group" ng-class="{'has-error': (csvForm.longitudeColumn.$dirty || csvForm.$submitted) && csvForm.longitudeColumn.$invalid}">
         <label class="control-label" for="longitudeColumn">Longitude column</label>
-        <select name="longitudeColumn" class="form-control" ng-model="Main.longitudeColumn" required id="longitudeColumn" ng-change="Main.fitBounds()">
+        <select name="longitudeColumn" class="form-control" ng-model="Main.longitudeColumn" required id="longitudeColumn" ng-change="Main.fitBounds(csvForm.latitudeColumn, csvForm.longitudeColumn)" coordinate-column="Main.csvRows[0]">
           <option ng-repeat="headerName in Main.header">{{ headerName }}</option>
         </select>
-        <div ng-messages="csvForm.longitudeColumn.$error" ng-show="csvForm.$submitted">
+        <div ng-messages="csvForm.longitudeColumn.$error" ng-show="csvForm.longitudeColumn.$dirty || csvForm.$submitted">
           <div ng-messages-include="error-messages"></div>
         </div>
       </div>
@@ -62,7 +62,8 @@
 
       <div class="form-group" ng-class="{'has-error': csvForm.filterByColumn.$invalid}">
         <label class="control-label" for="filterByColumn">Filter by column (optional)</label>
-        <select name="filterByColumn" class="form-control" ng-model="Main.filterByColumn" id="filterByColumn" ng-change="Main.filterByColumnChanged(csvForm.filterByColumn)" heatfilter="Main.csvRows">
+        <select name="filterByColumn" class="form-control" ng-model="Main.filterByColumn" id="filterByColumn" ng-change="Main.filterByColumnChanged(csvForm.filterByColumn)" filter-column="Main.csvRows">
+          <option value="">---None---</option>
           <option ng-repeat="headerName in Main.header">{{ headerName }}</option>
         </select>
         <div ng-messages="csvForm.filterByColumn.$error">

@@ -41,12 +41,19 @@
 
     <footer class="footer">
       <div class="container">
-        <p><i class="glyphicon glyphicon-heart"></i>&nbsp;&nbsp;<a href="http://rutorika.ru">Rutorika</a></p>
+        <p>
+          <i class="glyphicon glyphicon-heart"></i>&nbsp;&nbsp;<a href="http://rutorika.ru">Rutorika</a> 2016
+          <span class="pull-right">
+            <iframe src="//ghbtns.com/github-btn.html?user=rutorika&type=follow&count=false" frameborder="0" scrolling="0" width="130px" height="20px"></iframe>
+            <iframe src="//ghbtns.com/github-btn.html?user=rutorika&repo=csv-to-heatmap&type=star&count=true" frameborder="0" scrolling="0" width="100px" height="20px"></iframe>
+          </span>
+        </p>
       </div>
     </footer>
     <script type="text/ng-template" id="error-messages">
       <p ng-message="required" class="help-block">This field is required</p>
-      <p ng-message="heatfilter" class="help-block">This column has over 500 different values, so you can't filter by it</p>
+      <p ng-message="filterColumn" class="help-block">This column has over 500 different values, so you can't filter by it</p>
+      <p ng-message="coordinateColumn" class="help-block">This CSV has invalid cooardinates in this column</p>
     </script>
 
     <!-- build:js(src) scripts/vendor.js -->

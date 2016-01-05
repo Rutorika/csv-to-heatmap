@@ -5,22 +5,23 @@
   'use strict';
 
   angular.module('csvToHeatmap')
-    .directive('heatfilter', heatfilter);
+    .directive('coordinateColumn', coordinateColumn);
 
   /** @ngInject */
-  function heatfilter(_) {
+  function coordinateColumn() {
     return {
       require: 'ngModel',
       scope: {
-        heatfilter: '='
+        coordinateColumn: '='
       },
       link: function (scope, elm, attrs, ctrl) {
-        ctrl.$validators.heatfilter = function (modelValue) {
-          if (ctrl.$isEmpty(modelValue)) {
+        ctrl.$validators.coordinateColumn = function (modelValue) {
+
+          if (ctrl.$isEmpty(modelValue) || !scope.coordinateColumn) {
             return true;
           }
 
-          return _.uniq(_.pluck(scope.heatfilter, modelValue)).length <= 500;
+          return isFinite(scope.coordinateColumn[modelValue]);
         };
       }
     };
