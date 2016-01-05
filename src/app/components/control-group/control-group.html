@@ -1,0 +1,9 @@
+<div class="form-group" ng-class="{ 'has-error': (form[fieldName].$dirty || form.$submitted) && form[fieldName].$invalid }">
+  <label ng-if="fieldLabel" class="control-label">{{ fieldLabel }}</label>
+
+  <ng-transclude></ng-transclude>
+
+  <div ng-messages="form[fieldName].$error" ng-if="form[fieldName].$dirty || form.$submitted">
+    <div ng-messages-include="app/components/control-group/messages.html"></div>
+  </div>
+</div>

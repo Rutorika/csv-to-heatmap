@@ -23,55 +23,39 @@
   <div class="col-md-4" style="margin-bottom: 2em;">
 
     <form name="csvForm" ng-submit="Main.renderHeatmap(csvForm)">
-      <div class="form-group" ng-class="{'has-error': csvForm.$submitted && csvForm.csv.$invalid}">
-        <label class="control-label" for="csv">CSV File</label>
-        <input ng-model="Main.csvRows" type="file" name="csv" ng-change="Main.csvChanged()" csv-reader id="csv" />
-        <div ng-messages="csvForm.csv.$error" ng-show="csvForm.$submitted">
-          <div ng-messages-include="error-messages"></div>
-        </div>
-      </div>
-      <div class="form-group">
-        <label class="control-label" for="intensity">Point intensity (%)</label>
-        <input type="number" name="intensity" min="0" max="100" ng-model="Main.pointIntensity" class="form-control" id="intensity" />
-      </div>
-      <div class="form-group">
-        <label class="control-label" for="radius">Point radius (meters)</label>
-        <input name="radius" type="number" min="0" max="10000" ng-model="Main.heatmapOptions.size" class="form-control" id="radius" />
-      </div>
 
-      <div class="form-group" ng-class="{'has-error': (csvForm.latitudeColumn.$dirty || csvForm.$submitted) && csvForm.latitudeColumn.$invalid}">
-        <label class="control-label" for="latitudeColumn">Latitude column</label>
-        <select name="latitudeColumn" class="form-control" ng-model="Main.latitudeColumn" required id="latitudeColumn" ng-change="Main.fitBounds(csvForm.latitudeColumn, csvForm.longitudeColumn)" coordinate-column="Main.csvRows[0]">
+      <control-group field-label="CSV File" field-name="csvFile">
+        <input name="csvFile" type="file" ng-model="Main.csvRows" ng-change="Main.csvChanged()" csv-reader />
+      </control-group>
+
+      <control-group field-label="Point intensity (%)" field-name="intensity">
+        <input name="intensity" type="number" min="0" max="100" ng-model="Main.pointIntensity" class="form-control" />
+      </control-group>
+
+      <control-group field-label="Point radius (meters)" field-name="radius">
+        <input name="radius" type="number" min="0" max="10000" ng-model="Main.heatmapOptions.size" class="form-control" />
+      </control-group>
+
+      <control-group field-label="Latitude column" field-name="latitudeColumn">
+        <select name="latitudeColumn" ng-model="Main.latitudeColumn" required ng-change="Main.fitBounds(csvForm.latitudeColumn, csvForm.longitudeColumn)" coordinate-column="Main.csvRows[0]" class="form-control">
           <option ng-repeat="headerName in Main.header">{{ headerName }}</option>
         </select>
-        <div ng-messages="csvForm.latitudeColumn.$error" ng-show="csvForm.latitudeColumn.$dirty || csvForm.$submitted">
-          <div ng-messages-include="error-messages"></div>
-        </div>
-      </div>
+      </control-group>
 
-      <div class="form-group" ng-class="{'has-error': (csvForm.longitudeColumn.$dirty || csvForm.$submitted) && csvForm.longitudeColumn.$invalid}">
-        <label class="control-label" for="longitudeColumn">Longitude column</label>
-        <select name="longitudeColumn" class="form-control" ng-model="Main.longitudeColumn" required id="longitudeColumn" ng-change="Main.fitBounds(csvForm.latitudeColumn, csvForm.longitudeColumn)" coordinate-column="Main.csvRows[0]">
+      <control-group field-label="Longitude column" field-name="longitudeColumn">
+        <select name="longitudeColumn" ng-model="Main.longitudeColumn" required ng-change="Main.fitBounds(csvForm.latitudeColumn, csvForm.longitudeColumn)" coordinate-column="Main.csvRows[0]" class="form-control">
           <option ng-repeat="headerName in Main.header">{{ headerName }}</option>
         </select>
-        <div ng-messages="csvForm.longitudeColumn.$error" ng-show="csvForm.longitudeColumn.$dirty || csvForm.$submitted">
-          <div ng-messages-include="error-messages"></div>
-        </div>
-      </div>
+      </control-group>
 
-
-      <div class="form-group" ng-class="{'has-error': csvForm.filterByColumn.$invalid}">
-        <label class="control-label" for="filterByColumn">Filter by column (optional)</label>
-        <select name="filterByColumn" class="form-control" ng-model="Main.filterByColumn" id="filterByColumn" ng-change="Main.filterByColumnChanged(csvForm.filterByColumn)" filter-column="Main.csvRows">
+      <control-group field-label="Filter by column (optional)" field-name="filterByColumn">
+        <select name="filterByColumn" ng-model="Main.filterByColumn" ng-change="Main.filterByColumnChanged(csvForm.filterByColumn)" filter-column="Main.csvRows" class="form-control">
           <option value="">---None---</option>
           <option ng-repeat="headerName in Main.header">{{ headerName }}</option>
         </select>
-        <div ng-messages="csvForm.filterByColumn.$error">
-          <div ng-messages-include="error-messages"></div>
-        </div>
-      </div>
+      </control-group>
 
-      <button type="submit" class="btn btn-primary">Render heatmap</button>
+      <button type="submit" class="btn btn-primary" ng-disabled="csvForm.$invalid && csvForm.$submitted">Render heatmap</button>
     </form>
 
   </div>
