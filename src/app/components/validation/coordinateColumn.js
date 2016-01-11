@@ -1,5 +1,5 @@
 /**
- * Attribute directive for the file input. Parse selected csv file and update model value with the result.
+ * Validate input as coordinate (latitude or longitude)
  */
 (function () {
   'use strict';

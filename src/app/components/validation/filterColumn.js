@@ -1,5 +1,5 @@
 /**
- * Attribute directive for the file input. Parse selected csv file and update model value with the result.
+ * Validation rule for column name. Check is values of the selected column has less then 500 unique values.
  */
 (function () {
   'use strict';

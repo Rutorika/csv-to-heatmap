@@ -1,3 +1,6 @@
+/**
+ * directive for bootstrap form-group
+ */
 (function () {
   'use strict';
 
